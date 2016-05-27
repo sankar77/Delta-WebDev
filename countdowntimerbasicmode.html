@@ -1,0 +1,118 @@
+<html>
+<head>
+<!--Styling js output using css-->
+<style>
+body{
+	text-align: center;
+	background: white;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+
+h1{
+  color: red;
+  font-weight: 100;
+  font-size: 40px;
+  margin: 40px 0px 20px;
+}
+
+#clocktimer{
+	font-family: sans-serif;
+	color: white;
+	display: inline-block;
+	font-weight: 100;
+	text-align: center;
+	font-size: 30px;
+}
+
+
+#clocktimer > span{
+	padding: 10px;
+	border-radius: 3px;
+	background: black;
+	display: inline-block;
+}
+
+
+#clocktimer > div{
+	padding: 15px;
+	border-radius: 8px;
+	background: black;
+	display: inline-block;
+}
+
+
+.time{
+	padding-top: 5px;
+	font-size: 16px;
+}
+</style>
+
+<script>
+var tm;
+<!--Function to calculate remaining time-->
+function getTimeRemaining(endtime) {
+  
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return{ t,
+          days,
+          hours,
+          minutes,
+          seconds
+          };
+
+};
+
+
+setInterval(function(){
+  
+  var t = getTimeRemaining(deadline);
+
+	var clock = document.getElementById('clocktimer');
+    <!--Assigning the physical clock to variables so as to make the work easy-->
+    var daystimer = clock.querySelector('.days');
+    var hourstimer = clock.querySelector('.hours');
+    var minutestimer = clock.querySelector('.minutes');
+    var secondstimer = clock.querySelector('.seconds');
+
+  daystimer.innerHTML=t.days;
+  hourstimer.innerHTML=t.hours;
+  minutestimer.innerHTML=t.minutes;
+  secondstimer.innerHTML=t.seconds;
+  },1000);
+
+<!--This deadline is 15 days from the system date which essentially means you don't have to check for the condition (deadline<0)-->
+var deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
+
+</script>
+</head>
+<body>
+<h1>Countdown Clock</h1>
+<!--Physical representation of clock-->
+<div id="clocktimer">
+  <div>
+  
+  
+  <span class="days"></span>
+    <div class="time">Days</div>
+    </div>
+  
+  <div>
+    <span class="hours"></span>
+    <div class="time">Hours</div>
+  </div>
+  <div>
+    <span class="minutes"></span>
+    <div class="time">Minutes</div>
+  </div>
+  <div>
+    <span class="seconds"></span>
+    <div class="time">Seconds</div>
+  </div>
+</div>
+</body>
+</html>
