@@ -60,7 +60,7 @@ var c;
 
 function myDte(){
 x=document.getElementById("mydt").value;
- document.getElementById("demo").innerHTML=x;
+ document.getElementById("mydt").disabled=true; 
 
 var endtime1=x;
 var timerem=getTimeRemaining(endtime1);
@@ -70,7 +70,7 @@ c=timerem;
 if (!timer_is_on) 
 {
         timer_is_on = 1;
-        document.getElementById("demo").innerHTML=c.minutes;
+        
         t = setTimeout(function(){ 
                                    var daystimer = clock.querySelector('.days1');
                                    var hourstimer = clock.querySelector('.hours1');
@@ -118,6 +118,20 @@ t = setTimeout(function(){
                          },1000); }, 1000);
 myDte();
 
+}
+function resetCount(){
+stopCount();
+var clock = document.getElementById('clocktimer1');
+var daystimer = clock.querySelector('.days1');
+var hourstimer = clock.querySelector('.hours1');
+var minutestimer = clock.querySelector('.minutes1');
+var secondstimer = clock.querySelector('.seconds1');
+
+   daystimer.innerHTML=0;
+   hourstimer.innerHTML=0;
+   minutestimer.innerHTML=0;
+   secondstimer.innerHTML=0;
+document.getElementById("mydt").disabled=false; 
 }
 
 
@@ -185,5 +199,6 @@ var deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
 </div>
 <button onclick="stopCount()">STOP TIMER</button>
 <button onclick="resumeCount()">RESUME TIMER</button>
+<button onclick="resetCount()">RESET TIMER</button>
 </body>
 </html>
