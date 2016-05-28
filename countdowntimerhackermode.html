@@ -1,0 +1,189 @@
+<html>
+<head>
+<style>
+body
+{
+  text-align: center;
+  background: white;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+
+h1
+{
+  color: red;
+  font-weight: 100;
+  font-size: 40px;
+  margin: 40px 0px 20px;
+}
+
+
+#clocktimer1
+{
+  font-family: sans-serif;
+  color: white;
+  display: inline-block;
+  font-weight: 100;
+  text-align: center;
+  font-size: 30px;
+}
+
+
+#clocktimer1 > span
+{
+  padding: 10px;
+  border-radius: 3px;
+  background: black;
+  display: inline-block;
+}
+
+
+#clocktimer1 > div
+{
+  padding: 15px;
+  border-radius: 8px;
+  background: black;
+  display: inline-block;
+}
+
+.time
+{
+  padding-top: 5px;
+  font-size: 16px;
+}
+</style>
+<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"-->
+<script>
+var x;
+var t;
+var c;
+
+function myDte(){
+x=document.getElementById("mydt").value;
+ document.getElementById("demo").innerHTML=x;
+
+var endtime1=x;
+var timerem=getTimeRemaining(endtime1);
+var timer_is_on = 0;
+c=timerem;
+
+if (!timer_is_on) 
+{
+        timer_is_on = 1;
+        document.getElementById("demo").innerHTML=c.minutes;
+        t = setTimeout(function(){ 
+                                   var daystimer = clock.querySelector('.days1');
+                                   var hourstimer = clock.querySelector('.hours1');
+                                   var minutestimer = clock.querySelector('.minutes1');
+                                   var secondstimer = clock.querySelector('.seconds1');
+                                    setInterval(function(){
+                                                            var c = getTimeRemaining(endtime1);
+                                                            daystimer.innerHTML=c.days;
+                                                            hourstimer.innerHTML=c.hours;
+                                                            minutestimer.innerHTML=c.minutes;
+                                                            secondstimer.innerHTML=c.seconds;
+                                  },1000); }, 1000);
+
+
+}
+
+
+initClock1('clocktimer1',endtime1);
+}
+
+function stopCount() {
+   
+    
+    
+     for(i=0; i<100; i++)
+{
+    window.clearInterval(i);
+}
+    
+    
+}
+function resumeCount(){
+var tme=getTimeRemaining(c);
+t = setTimeout(function(){ 
+                           var daystimer = clock.querySelector('.days1');
+                           var hourstimer = clock.querySelector('.hours1');
+                           var minutestimer = clock.querySelector('.minutes1');
+                           var secondstimer = clock.querySelector('.seconds1');
+                           setInterval(function(){
+                                                   var tme = getTimeRemaining(c);
+                                                   daystimer.innerHTML=tme.days;
+                                                   hourstimer.innerHTML=tme.hours;
+                                                   minutestimer.innerHTML=tme.minutes;
+                                                   secondstimer.innerHTML=tme.seconds;
+                         },1000); }, 1000);
+myDte();
+
+}
+
+
+
+function getTimeRemaining(endtime) {
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  
+  return{ 
+          t,
+          days,
+          hours,
+          minutes,
+          seconds
+          };
+}
+
+
+function initClock1(id, endtime) {
+    var clock = document.getElementById(id);
+    var t = getTimeRemaining(endtime);
+    var daystimer = clock.querySelector('.days1');
+    var hourstimer = clock.querySelector('.hours1');
+    var minutestimer = clock.querySelector('.minutes1');
+    var secondstimer = clock.querySelector('.seconds1');
+      setInterval(function(){
+                              var t = getTimeRemaining(endtime);
+                              daystimer.innerHTML=t.days;
+                              hourstimer.innerHTML=t.hours;
+                              minutestimer.innerHTML=t.minutes;
+                              secondstimer.innerHTML=t.seconds;
+                            },1000);
+  }
+
+var deadline = new Date(Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000);
+</script>
+</head>
+<body>
+<h1>Countdown Clock</h1>
+<input type="date" name="dt" id="mydt">
+<!--input type="submit" name="sub" value="SUBMIT"-->
+<button onclick="myDte()">SUBMIT</button>
+<p id="demo"></p>
+<div id="clocktimer1">
+  <div>
+     <span class="days1"></span>
+       <div class="time">Days</div>
+  </div>
+  
+  <div>
+     <span class="hours1"></span>
+       <div class="time">Hours</div>
+  </div>
+  <div>
+     <span class="minutes1"></span>
+       <div class="time">Minutes</div>
+  </div>
+  <div>
+     <span class="seconds1"></span>
+        <div class="time">Seconds</div>
+  </div>
+</div>
+<button onclick="stopCount()">STOP TIMER</button>
+<button onclick="resumeCount()">RESUME TIMER</button>
+</body>
+</html>
